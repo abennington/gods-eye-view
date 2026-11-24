@@ -10192,3 +10192,16 @@ browser-only media links, refresh cadence, and location provenance where
 available. When MLIT serves its recognized adjustment image, `/api/cctv/frame`
 returns a God’s Eye maintenance card and `/api/cctv/health` reports the camera
 as degraded with the provider-adjustment reason.
+
+## Markets & Freight panel (fork-local)
+
+A left-rail panel, **MARKETS & FREIGHT** (`#agri-markets-panel`, collapsed by
+default), renders `/api/agri/summary`: USDA AMS Market News poultry and egg
+reports (`USDA_MARS_API_KEY`), NASS Quick Stats poultry prices, weekly hatchery
+and Cold Storage stocks (`USDA_NASS_API_KEY`), and keyless trucking signals
+(AgTransport refrigerated truck rates and volumes, diesel, BTS freight TSI).
+Every upstream call is server-side and cached per feed (15 min to 12 h); a
+failed refresh serves the last good answer marked stale for up to 7 days. A feed
+without its key reads KEY NEEDED and names the Replit Secret to add. The panel
+polls every 5 minutes while the tab is visible and hides in Cockpit, clean
+view and recording. See [agri-feeds.md](agri-feeds.md).

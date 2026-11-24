@@ -19,6 +19,7 @@ import UiSelect from '../kit/UiSelect.js';
 import LayerSectionIndex from './panels/LayerSectionIndex.vue';
 import LayerFinder from './panels/LayerFinder.vue';
 import DataLibraryBrowse from './panels/DataLibraryBrowse.vue';
+import AgriMarketsPanel from './panels/AgriMarketsPanel.vue';
 
 // Scene sharing (src/scenes/sharing.js) offers its authoring bar and presents
 // its dialog through this store; without this view, neither is drawn.
@@ -66,6 +67,9 @@ async function importChosen(event) {
     <div id="utilities-toggles" class="data-toggle-list utilities-list"></div>
     <div class="utilities-tools"><DrawControls /><GeoImport /></div>
   </RailPanel>
+
+  <!-- Markets & Freight (fork-local, docs/agri-feeds.md) -->
+  <AgriMarketsPanel />
 
   <!-- CCTV Coverage Panel -->
   <CctvPanel />
