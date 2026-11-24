@@ -1,7 +1,8 @@
 # Running on Replit
 
 This checkout keeps the existing Vue, Cesium, and Vite standalone architecture.
-Vite serves both the browser app and its existing provider API middleware.
+Vite serves the development app. Publishing uses an Express production server
+for the compiled frontend and the same provider API middleware.
 
 ## Start
 
@@ -14,6 +15,23 @@ Vite serves both the browser app and its existing provider API middleware.
   disabled by the existing `PUPPETEER_SKIP_DOWNLOAD=1` setting.
 - Run `npm run doctor` for setup diagnostics and `npm run build` to check
   the browser build. A static build alone does not include the provider APIs.
+
+## Publish
+
+- Keep the Reserved VM target: the provider APIs maintain caches and live feeds.
+- Build command: `npm ci && npm run build`.
+- Run command: `npm start` (Node runs `server/standalone/production.js`).
+- The server binds to `HOST` (default `0.0.0.0`) and `PORT` (default `5000`).
+  It adds `REPLIT_DOMAINS` to the explicit host allowlist.
+- Publishing blocks `npm run dev` as an insecure development configuration.
+  Do not work around that check by renaming the Vite command or using
+  `vite preview`. The production server serves only `dist` and does not expose
+  source files, development compilation, or HMR.
+- Provider HTTP adapters are shared through their existing preview hooks;
+  development-only hooks, the credential writer, and local MCP stay disabled.
+  Configure production credentials through Replit Secrets.
+- `node --test server/standalone/production.test.mjs` covers static serving,
+  API routing, CSP, host refusal, source isolation, and provider teardown.
 
 ## Preview security
 

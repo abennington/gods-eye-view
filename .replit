@@ -15,11 +15,9 @@ localPort = 5000
 externalPort = 80
 
 [deployment]
-# Reserved VM, not Autoscale: the server keeps in-memory caches, rate-limit
-# buckets and long-lived upstream sockets that cold starts would discard.
 deploymentTarget = "vm"
-build = ["npm", "ci"]
-run = ["sh", "-c", "GEV_ALLOWED_HOSTS=\"${REPLIT_DOMAINS},${GEV_ALLOWED_HOSTS}\" npm run dev"]
+build = ["sh", "-c", "npm ci && npm run build"]
+run = ["sh", "-c", "NODE_ENV=production npm start"]
 
 [nix]
 channel = "stable-25_05"
