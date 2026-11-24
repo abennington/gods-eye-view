@@ -17,6 +17,8 @@ onBoot = "npm ci"
 [env]
 HOST = "0.0.0.0"
 PORT = "5000"
+# Momenta Technologies theme (build/momentaTheme.js). Remove for upstream look.
+GEV_THEME = "momenta"
 # Puppeteer is only used by the QA scripts; skip its Chromium download.
 PUPPETEER_SKIP_DOWNLOAD = "1"
 
