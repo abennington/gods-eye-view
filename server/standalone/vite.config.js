@@ -26,7 +26,7 @@ export function standaloneConfig(
     if (process.env[key] === undefined) process.env[key] = value;
   }
   const tools = standaloneVoiceTools();
-  return createBrowserViteConfig({
+  const config = createBrowserViteConfig({
     plugins: [
       ...localProviderPlugins({
         realtime: { tools },
@@ -52,6 +52,21 @@ export function standaloneConfig(
     allowedHosts: resolveAllowedHosts(process.env.GEV_ALLOWED_HOSTS),
     command,
   });
+  // The Replit editor frames the full app, not the restricted embed view.
+  // Allow only Replit's editor origins in development; keep the rest of the
+  // CSP, API headers, and non-Replit/production framing protections intact.
+  if (command === 'serve' && process.env.REPLIT_DEV_DOMAIN) {
+    const headers = { ...config.server.headers };
+    delete headers['X-Frame-Options'];
+    headers['Content-Security-Policy'] = headers[
+      'Content-Security-Policy'
+    ].replace(
+      "frame-ancestors 'none'",
+      "frame-ancestors 'self' https://replit.com https://*.replit.com",
+    );
+    config.server.headers = headers;
+  }
+  return config;
 }
 
 export default defineConfig(standaloneConfig);
