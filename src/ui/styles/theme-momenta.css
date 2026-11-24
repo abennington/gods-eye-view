@@ -1,0 +1,122 @@
+/* ═══════════════════════════════════════════════
+   MOMENTA TECHNOLOGIES THEME LAYER
+   Loaded only with GEV_THEME=momenta (build/momentaTheme.js appends it to
+   style.css, after every upstream sheet, so these tokens win).
+
+   Brand rules carried over from the Momenta design system:
+   - Emerald canvas, mint signal accent (60/30/10: emerald / black / mint).
+   - Corners stay sharp: the mark is built from hard-edged bars.
+   - Gilroy for headings, Inter for UI/body, FT Calhern for display numerals.
+   ═══════════════════════════════════════════════ */
+
+/* Gilroy and FT Calhern are licensed brand fonts and are NOT committed (this
+   repo is public). Drop the files into public/fonts/momenta/ on the machine
+   that serves the app; until then the stacks below fall back to Inter. */
+@font-face {
+  font-family: 'Gilroy';
+  src:
+    local('Gilroy ExtraBold'),
+    url('/fonts/momenta/Gilroy-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src:
+    local('Gilroy Light'),
+    url('/fonts/momenta/Gilroy-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FT Calhern';
+  src:
+    local('FT Calhern Condensed'),
+    url('/fonts/momenta/FTCalhern-CondensedRegular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Momenta brand core ---- */
+  --momenta-emerald: #00393a;
+  --momenta-emerald-950: #00211f;
+  --momenta-emerald-800: #064c4c;
+  --momenta-emerald-700: #0f5f5e;
+  --momenta-mint: #38f3b4;
+  --momenta-mint-300: #6ff6c8;
+  --momenta-mint-500: #20d997;
+  --momenta-black: #111111;
+
+  /* ---- Upstream tokens, re-pointed ---- */
+  --bg-dark: #00211f;
+  --glass-bg: rgba(0, 33, 31, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(56, 243, 180, 0.38);
+  --accent: var(--momenta-mint);
+  --accent-dim: rgba(56, 243, 180, 0.14);
+  --accent-glow: rgba(56, 243, 180, 0.35);
+  --scroll-thumb: rgba(56, 243, 180, 0.46);
+  --scroll-track: rgba(255, 255, 255, 0.06);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.64);
+  --text-dim: rgba(255, 255, 255, 0.4);
+  --menu-bg: var(--momenta-emerald);
+  --dock-label-color: rgba(215, 238, 237, 0.74);
+
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: 'Gilroy', 'Inter', system-ui, sans-serif;
+  --font-display: 'FT Calhern', 'Arial Narrow', 'Inter', sans-serif;
+
+  /* Sharp, restrained radii (Momenta radius-md / radius-sm). */
+  --panel-radius: 6px;
+  --btn-radius: 4px;
+
+  /* Momenta motion: standard easing, 120/200/320ms. */
+  --transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::selection {
+  background: rgba(56, 243, 180, 0.32);
+  color: #ffffff;
+}
+
+/* Mint focus ring with an emerald gap, per the Momenta focus token. */
+:where(
+  button,
+  a[href],
+  input,
+  select,
+  textarea,
+  summary,
+  [tabindex],
+  [role='button'],
+  [role='tab'],
+  [role='switch'],
+  [role='checkbox'],
+  [role='option']
+):focus-visible {
+  outline-color: var(--momenta-mint) !important;
+}
+
+/* Headings and panel titles in Gilroy ExtraBold. */
+h1,
+h2,
+h3,
+.panel-title,
+.panel-surface-title,
+.param-panel-title,
+.first-run-mode-title,
+.first-run-section-title,
+.gev-guide-title,
+.gev-voice-panel-title,
+.rail-card-title,
+.h-brand,
+.brand {
+  font-family: var(--font-heading);
+  font-weight: 800;
+}

@@ -30,3 +30,9 @@ pinokio/.installed
 
 # Transient: a release interrupted mid-assembly (npm run changelog recovers it)
 changelog.d/.assembling/
+
+# Licensed Momenta brand fonts: dropped in locally, never committed.
+public/fonts/momenta/*.otf
+public/fonts/momenta/*.ttf
+public/fonts/momenta/*.woff
+public/fonts/momenta/*.woff2

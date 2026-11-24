@@ -2,6 +2,10 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
 import { resolveAllowedHosts } from '../../build/allowedHosts.js';
 import { createBrowserViteConfig } from '../../build/vite.js';
+import {
+  isMomentaTheme,
+  momentaThemePlugin,
+} from '../../build/momentaTheme.js';
 import { localProviderPlugins } from '../providers/local.js';
 import { localMcpPlugin } from '../mcp/plugin.js';
 import { apiNotFoundPlugin } from './api-not-found.js';
@@ -34,6 +38,10 @@ export function standaloneConfig(
       conformanceReferencesPlugin(),
       apiNotFoundPlugin(),
       unwatchedRuntimeDirsPlugin(),
+      momentaThemePlugin({
+        enabled: isMomentaTheme(process.env.GEV_THEME),
+        root,
+      }),
     ],
     googleApiKey: process.env.GOOGLE_MAPS_API_KEY,
     cesiumToken: process.env.CESIUM_ION_TOKEN,

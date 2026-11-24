@@ -1,0 +1,34 @@
+# Replit config. The Vite dev server IS the app: it serves the client and runs
+# the API proxies as middleware (same as the Dockerfile), so the workspace and
+# the deployment both run `npm run dev`.
+#
+# GEV_ALLOWED_HOSTS is required: the server only answers Host headers it
+# trusts. REPLIT_DEV_DOMAIN is the workspace webview host; REPLIT_DOMAINS is the
+# comma-separated list of deployment hosts (*.replit.app plus custom domains).
+# Empty entries are ignored by build/allowedHosts.js.
+#
+# API keys go in Replit Secrets, never in a committed .env. Provider Settings
+# (POWER UP) refuses proxied requests by design, so it cannot save keys here.
+
+modules = ["nodejs-24"]
+run = "GEV_ALLOWED_HOSTS=\"${REPLIT_DEV_DOMAIN},${REPLIT_DOMAINS},${GEV_ALLOWED_HOSTS}\" npm run dev"
+onBoot = "npm ci"
+
+[env]
+HOST = "0.0.0.0"
+PORT = "5000"
+# Momenta Technologies theme (build/momentaTheme.js). Remove for upstream look.
+GEV_THEME = "momenta"
+# Puppeteer is only used by the QA scripts; skip its Chromium download.
+PUPPETEER_SKIP_DOWNLOAD = "1"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[deployment]
+# Reserved VM, not Autoscale: the server keeps in-memory caches, rate-limit
+# buckets and long-lived upstream sockets that cold starts would discard.
+deploymentTarget = "vm"
+build = ["npm", "ci"]
+run = ["sh", "-c", "GEV_ALLOWED_HOSTS=\"${REPLIT_DOMAINS},${GEV_ALLOWED_HOSTS}\" npm run dev"]
