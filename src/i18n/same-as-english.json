@@ -495,7 +495,8 @@
     "3D",
     "KT",
     "Manual",
-    "{seconds} s"
+    "{seconds} s",
+    "{price}/gal"
   ],
   "fr": [
     "1 min/s",
@@ -753,7 +754,9 @@
     "{n} mm",
     "3D",
     "KT",
-    "{seconds} s"
+    "{seconds} s",
+    "{price}/gal",
+    "{rate}/mi"
   ],
   "it": [
     "1 min/s",
@@ -987,7 +990,9 @@
     "{n} mm",
     "3D",
     "KT",
-    "{seconds} s"
+    "{seconds} s",
+    "{price}/gal",
+    "{rate}/mi"
   ],
   "ja": [
     "1090 MHz",
@@ -1267,7 +1272,9 @@
     "3D",
     "KT",
     "Manual",
-    "{seconds} s"
+    "{seconds} s",
+    "{price}/gal",
+    "{rate}/mi"
   ],
   "ru": [
     "1900–1945",
@@ -1505,7 +1512,8 @@
     "{n} mm",
     "3D",
     "KT",
-    "{seconds} s"
+    "{seconds} s",
+    "{price}/gal"
   ],
   "uk": [
     "1900–1945",

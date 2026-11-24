@@ -38,6 +38,8 @@ import { acartiaProxy } from './acartia.js';
 import { cycloneProxy } from './cyclones.js';
 import { windProxy } from './wind.js';
 import { libraryProxy } from './library.js';
+// Fork-local: USDA poultry, cold storage and freight feeds (docs/agri-feeds.md).
+import { agriMarketsProxy } from './agri/index.js';
 
 /**
  * Construct the local provider plugins in their established order.
@@ -95,6 +97,7 @@ function localProviderPlugins({
     newsProxy(),
     inaturalistProxy(),
     acartiaProxy(),
+    agriMarketsProxy(),
     keySetupEndpoint(),
   ];
 }

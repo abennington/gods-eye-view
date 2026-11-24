@@ -13,6 +13,7 @@ export const PANEL_RAIL_FALLBACK_ICON = 'more_horiz';
 export const PANEL_RAIL_ITEMS = Object.freeze({
   'data-panel': { icon: 'layers', label: msg('DATA LAYERS') },
   'utilities-panel': { icon: 'handyman', label: msg('UTILITIES') },
+  'agri-markets-panel': { icon: 'egg_alt', label: msg('MARKETS & FREIGHT') },
   'scene-panel': { icon: 'movie', label: msg('AUTHORING') },
   // `context` keeps the panel's name apart from the satellite class of the
   // same English word.
