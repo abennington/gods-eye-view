@@ -6,6 +6,7 @@ import {
   isMomentaTheme,
   momentaThemePlugin,
 } from '../../build/momentaTheme.js';
+import { productionServingPlugin } from '../../build/productionServing.js';
 import { localProviderPlugins } from '../providers/local.js';
 import { localMcpPlugin } from '../mcp/plugin.js';
 import { apiNotFoundPlugin } from './api-not-found.js';
@@ -42,6 +43,7 @@ export function standaloneConfig(
         enabled: isMomentaTheme(process.env.GEV_THEME),
         root,
       }),
+      productionServingPlugin(),
     ],
     googleApiKey: process.env.GOOGLE_MAPS_API_KEY,
     cesiumToken: process.env.CESIUM_ION_TOKEN,

@@ -144,6 +144,10 @@ test('root config retains existing named exports and standalone provider order',
   for (const [name, value] of Object.entries(providers))
     assert.equal(compatibility[name], value, name);
   const config = standaloneConfig({ mode: 'test' }, { nominatimStorageDir });
+  // Fork-local plugins (Momenta theme, production serving) are not upstream
+  // providers; the order pinned below is upstream's.
+  const FORK_PLUGINS = new Set(['gev-momenta-theme', 'gev-production-serving']);
+  config.plugins = config.plugins.filter((plugin) => !FORK_PLUGINS.has(plugin.name));
   const standaloneProviders = config.plugins
     .slice(4, -7)
     .map((plugin) => plugin.name);

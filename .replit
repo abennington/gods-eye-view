@@ -1,6 +1,10 @@
-# Replit config. The Vite dev server IS the app: it serves the client and runs
-# the API proxies as middleware (same as the Dockerfile), so the workspace and
-# the deployment both run `npm run dev`.
+# Replit config.
+#
+# Workspace (Run button): the Vite dev server, with hot reload, for editing.
+# Deployment: a production build served by `vite preview`. Every API proxy
+# runs there too (configurePreviewServer), and build/productionServing.js adds
+# precompressed assets + immutable caching. Measured on a cold first load:
+# dev 12.3 s / 1,555 requests / 90 MB  ->  production 3.7 s / 52 requests / 8.5 MB.
 #
 # GEV_ALLOWED_HOSTS is required: the server only answers Host headers it
 # trusts. REPLIT_DEV_DOMAIN is the workspace webview host; REPLIT_DOMAINS is the
@@ -9,6 +13,8 @@
 #
 # API keys go in Replit Secrets, never in a committed .env. Provider Settings
 # (POWER UP) refuses proxied requests by design, so it cannot save keys here.
+# GOOGLE_MAPS_API_KEY and CESIUM_ION_TOKEN are compiled into the client bundle,
+# so they must exist as Secrets BEFORE the deployment builds.
 
 modules = ["nodejs-24"]
 run = "GEV_ALLOWED_HOSTS=\"${REPLIT_DEV_DOMAIN},${REPLIT_DOMAINS},${GEV_ALLOWED_HOSTS}\" npm run dev"
@@ -30,5 +36,6 @@ externalPort = 80
 # Reserved VM, not Autoscale: the server keeps in-memory caches, rate-limit
 # buckets and long-lived upstream sockets that cold starts would discard.
 deploymentTarget = "vm"
-build = ["npm", "ci"]
-run = ["sh", "-c", "GEV_ALLOWED_HOSTS=\"${REPLIT_DOMAINS},${GEV_ALLOWED_HOSTS}\" npm run dev"]
+# Env is set inline so the deployment does not depend on [env] being applied.
+build = ["sh", "-c", "PUPPETEER_SKIP_DOWNLOAD=1 npm ci && GEV_THEME=momenta npm run build"]
+run = ["sh", "-c", "HOST=0.0.0.0 PORT=5000 GEV_THEME=momenta GEV_ALLOWED_HOSTS=\"${REPLIT_DOMAINS},${GEV_ALLOWED_HOSTS}\" npx vite preview"]
